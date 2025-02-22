@@ -7,12 +7,16 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -25,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -60,6 +65,8 @@ fun GitUi(modifier: Modifier = Modifier, context: Context) {
     )
     var urlImage by remember { mutableStateOf("") }
     var userId by remember { mutableStateOf("") }
+    var userName by remember { mutableStateOf("") }
+    var userBio by remember { mutableStateOf("") }
 
     Column(
         modifier = modifier
@@ -81,22 +88,47 @@ fun GitUi(modifier: Modifier = Modifier, context: Context) {
             }
         )
         Button(onClick = {
-            Toast.makeText(context, userId, Toast.LENGTH_LONG).show()
+            val show = Toast.makeText(context, userId, Toast.LENGTH_LONG).show()
 
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     val response = dataSource.getAvatarInfo(userId)
                     urlImage = response.url
+
+                    CoroutineScope(Dispatchers.Main).launch {
+                        userName = response.name ?: "No name available"
+                        userBio = response.bio ?: "No bio available"
+                    }
                 } catch (e: Exception) {
-                    // Manejar el error
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         }) {
-            Text(text = "Buscar Usuario")
+            Text(
+                text = "GitHub User Info"
+            )
         }
-        AsyncImage(
-            model = urlImage,
-            contentDescription = null
-        )
+
+        // Display user information in boxes with borders
+        if (urlImage.isNotEmpty()) {
+            AsyncImage(
+                model = urlImage,
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .size(120.dp)
+            )
+
+
+                Text(text = userId)
+
+
+                Text(text = userName)
+
+                Text(text = userBio)
+
+        }
     }
 }
