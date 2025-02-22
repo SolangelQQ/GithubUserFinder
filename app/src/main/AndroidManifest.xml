@@ -13,9 +13,9 @@
         android:theme="@style/Theme.GithubUser"
         tools:targetApi="31">
         <activity
-            android:name=".GitHubActivity"
+            android:name=".GitUiActivity"
             android:exported="true"
-            android:label="@string/app_name"
+            android:label="@string/title_activity_git_ui"
             android:theme="@style/Theme.GithubUser">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

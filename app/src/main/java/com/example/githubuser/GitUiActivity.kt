@@ -1,7 +1,8 @@
-package com.example.user
+package com.example.githubuser
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -23,24 +25,29 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.network.GithubRemoteDataSource
 import com.example.network.RetrofitBuilder
+import com.example.githubuser.ui.theme.GithubUserTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class GitHubActivity : ComponentActivity() {
+class GitUiActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val context = applicationContext
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
         setContent {
-            // Usa tu tema aquí
-            Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                GitUi(modifier = Modifier.padding(innerPadding), context = context)
+            GithubUserTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    GitUi(modifier = Modifier.padding(innerPadding), context = context)
+//                        name = "Android",
+//                        modifier = Modifier.padding(innerPadding)
+
+                }
             }
         }
     }
