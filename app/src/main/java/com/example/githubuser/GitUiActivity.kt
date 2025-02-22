@@ -111,7 +111,6 @@ fun GitUi(modifier: Modifier = Modifier, context: Context) {
             )
         }
 
-        // Display user information in boxes with borders
         if (urlImage.isNotEmpty()) {
             AsyncImage(
                 model = urlImage,
@@ -121,14 +120,33 @@ fun GitUi(modifier: Modifier = Modifier, context: Context) {
                     .size(120.dp)
             )
 
-
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 4.dp)
+                    .padding(8.dp)
+            ) {
                 Text(text = userId)
+            }
 
-
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 4.dp)
+                    .padding(8.dp)
+            ) {
                 Text(text = userName)
+            }
 
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 4.dp)
+                    .padding(8.dp)
+                    .heightIn(min = 60.dp)
+            ) {
                 Text(text = userBio)
-
+            }
         }
     }
 }
