@@ -4,9 +4,13 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class AvatarResponseDto(
+class AvatarResponseDto(
     @Json(name = "login")
     val login: String,
     @Json(name = "avatar_url")
-    val url: String
+    val url: String,
+    @Json(name = "name")
+    val name: String?,
+    @Json(name = "bio")
+    val bio: String?
 )
